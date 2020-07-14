@@ -75,7 +75,7 @@ def cpw(p,pw_1,pw_2,pw_3,pw_4,pw_5):
                 picture.putpixel((w-2,h-1),(Pw_4,Pw_3,Pw_2))
                 re = str('图片密码更改成功，保存至应用程序目录下的“new_passwd.bmp”！')
                 passwd = str(hex(Pw_1)) +' '+ str(hex(Pw_2)) +' '+ str(hex(Pw_3)) +' '+ str(hex(Pw_4)) +' '+ str(bin(Pw_5))
-                print('文件已保存至应用目录下的“locked.bmp”。解密密码（空格不能少！）：' + passwd)
+                print('文件已保存至应用目录下的“new_passwd.bmp”。解密密码（空格不能少！）：' + passwd)
             else:
                 re = str('密码错误，修改失败！')
                 picture = Image.new("RGB",(w,h),0x0)
