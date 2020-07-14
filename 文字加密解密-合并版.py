@@ -44,8 +44,10 @@ if __name__ == '__main__':
     print('原作者（GitHub）：3150601355')
     print('BUG?不存在的！（手动滑稽）\n')
     while True:
-        choose = str(input('\n1：加密；2：解密；3：退出。输入数字选择：'))
+        choose = str(input('\n1：退出；\n2：加密；\n3：解密；\n4：修改密码。\n输入数字选择：'))
         if choose == '1':
+            break
+        elif choose == '2':
             filename1 = input('请输入文件位置：')
             Pw_1 = int(input('请输入随机数作为加密密码（0~255）[01]：'))
             Pw_2 = int(input('请输入随机数作为加密密码（0~255）[02]：'))
@@ -58,7 +60,7 @@ if __name__ == '__main__':
             im.save("output.bmp")
             passwd = str(hex(Pw_1)) +' '+ str(hex(Pw_2)) +' '+ str(hex(Pw_3)) +' '+ str(hex(Pw_4)) +' '+ str(bin(Pw_5))
             print('文件已保存至应用目录下的“output.bmp”。解密密码（空格不能少！）：' + passwd)
-        elif choose == '2':
+        elif choose == '3':
             filename2 = input('请输入文件位置：')
             passwd = input('请输入密码(格式：aaaa bbbb cccc dddd eeee ffff)：')
             pwlist = passwd.split(' ')
@@ -66,7 +68,7 @@ if __name__ == '__main__':
             with open("output.txt","w",encoding = "UTF-8") as f2:
                 f2.write(whole_text2)
             print('文件已保存至应用目录下的“output.txt”。')
-        elif choose == '3':
-            break
+        elif choose == '4':
+            print('请耐心等待功能上线哦')
         else:
             print('???请正确使用，谢谢！')
