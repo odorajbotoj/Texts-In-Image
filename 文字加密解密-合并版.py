@@ -2,20 +2,21 @@ from PIL import Image
 import math
 def ec(t,pw_1,pw_2,pw_3,pw_4,pw_5):
     wd = math.ceil(len(t)**0.5)
-    picture = Image.new("RGB",(wd+1,wd),0x0)
+    wd = wd + 1
+    picture = Image.new("RGB",(wd,wd),0x0)
     x,y = 0,0
     for i in t:
         word = ord(i) + pw_5
         rgb = (pw_1, (word & 0xFF00) >> 8, word & 0xFF)
         picture.putpixel((x,y), rgb)
-        if x == wd - 1:
+        if x == wd - 2:
             x = 0
             y += 1
         else:
             x += 1
-    picture.putpixel((wd,wd-1),(pw_1,pw_1,pw_1))
-    picture.putpixel((wd,wd-2),(pw_2,pw_3,pw_4))
-    picture.putpixel((wd-1,wd-1),(pw_4,pw_3,pw_2))
+    picture.putpixel((wd-1,wd-1),(pw_1,pw_1,pw_1))
+    picture.putpixel((wd-1,wd-2),(pw_2,pw_3,pw_4))
+    picture.putpixel((wd-2,wd-1),(pw_4,pw_3,pw_2))
     return picture
 def dc(p,pw_1,pw_2,pw_3,pw_4,pw_5):
     w,h = p.size
