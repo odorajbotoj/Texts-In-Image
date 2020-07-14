@@ -78,10 +78,13 @@ def cpw(p,pw_1,pw_2,pw_3,pw_4,pw_5):
                 print('文件已保存至应用目录下的“locked.bmp”。解密密码（空格不能少！）：' + passwd)
             else:
                 re = str('密码错误，修改失败！')
+                picture = Image.new("RGB",(w,h),0x0)
         else:
             re = str('密码错误，修改失败！')
+            picture = Image.new("RGB",(w,h),0x0)
     else:
         re = str('密码错误，修改失败！')
+        picture = Image.new("RGB",(w,h),0x0)
     print(re)
     return picture
 if __name__ == '__main__':
