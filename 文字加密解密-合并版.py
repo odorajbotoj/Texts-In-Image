@@ -18,11 +18,12 @@ def ec(t,pw_1,pw_2,pw_3,pw_4,pw_5):
     picture.putpixel((wd-1,wd-2),(pw_2,pw_3,pw_4))
     picture.putpixel((wd-2,wd-1),(pw_4,pw_3,pw_2))
     return picture
-def dc(p,pw_1,pw_2,pw_3,pw_4,pw_5):
+def dc(p,pw_1,pw_2,pw_3,pw_4,pw_5): 
     w,h = p.size
     if p.getpixel((w-1,h-1))==(pw_1,pw_1,pw_1):
         if p.getpixel((w-1,h-2))==(pw_2,pw_3,pw_4):
             if p.getpixel((w-2,h-1))==(pw_4,pw_3,pw_2):
+                print('密码验证成功！')
                 lst = []
                 for y in range(h):
                     for x in range(w):
@@ -32,13 +33,23 @@ def dc(p,pw_1,pw_2,pw_3,pw_4,pw_5):
                         index = (g << 8) + b
                         lst.append(chr(index-pw_5))
                 re = ''.join(lst)
+                while True:
+                    c = str(input('\n1：输出至终端\n2：输出至文件\n\n请选择：'))
+                    if c == '1':
+                        m = int(1)
+                        break
+                    elif c == '2':
+                        m = int(2)
+                        break
+                    else:
+                        print('？？？请正确输入，谢谢')
             else:
                 re = str('密码错误，解密失败！')
         else:
             re = str('密码错误，解密失败！')
     else:
         re = str('密码错误，解密失败！')
-    return re
+    return re,m
 def cpw(p,pw_1,pw_2,pw_3,pw_4,pw_5):
     w,h = p.size
     if p.getpixel((w-1,h-1))==(pw_1,pw_1,pw_1):
@@ -88,6 +99,7 @@ def cpw(p,pw_1,pw_2,pw_3,pw_4,pw_5):
     print(re)
     return picture
 if __name__ == '__main__':
+    print('\nTexts-In-Image v2.0 by:024026008\n')
     print('按照提示输入数据，请勿作死！如果程序闪退，可能是程序出错。请尝试重新运行或联系作者。by：024026008 可以在bilibili联系我。')
     print('原作者（GitHub）：3150601355')
     print('BUG?不存在的！（手动滑稽）\n')
@@ -104,18 +116,25 @@ if __name__ == '__main__':
             Pw_5 = int(input('请输入随机数作为数据位移码（0~3）：'))
             with open(filename1,encoding="UTF-8") as f1:
                 whole_text1 = f1.read()
+                f1.close()
             im1 = ec(whole_text1,Pw_1,Pw_2,Pw_3,Pw_4,Pw_5)
             im1.save("locked.bmp")
             passwd1 = str(hex(Pw_1)) +' '+ str(hex(Pw_2)) +' '+ str(hex(Pw_3)) +' '+ str(hex(Pw_4)) +' '+ str(bin(Pw_5))
             print('文件已保存至应用目录下的“locked.bmp”。解密密码（空格不能少！）：' + passwd1)
+            del(whole_text1)
         elif choose == '3':
             filename2 = input('请输入文件位置：')
             passwd2 = input('请输入密码(格式：aaaa bbbb cccc dddd eeee ffff)：')
             pwlist1 = passwd2.split(' ')
-            whole_text2 = dc(Image.open(filename2,"r"),int(pwlist1[0],16),int(pwlist1[1],16),int(pwlist1[2],16),int(pwlist1[3],16),int(pwlist1[4],2))
-            with open("unlocked.txt","w",encoding = "UTF-8") as f2:
-                f2.write(whole_text2)
-            print('文件已保存至应用目录下的“unlocked.txt”。')
+            whole_text2,mode1 = dc(Image.open(filename2,"r"),int(pwlist1[0],16),int(pwlist1[1],16),int(pwlist1[2],16),int(pwlist1[3],16),int(pwlist1[4],2))
+            if mode1 == int(1):
+                print(whole_text2)
+            elif mode1 == int(2):
+                with open("unlocked.txt","w",encoding = "UTF-8") as f2:
+                    f2.write(whole_text2)
+                    f2.close()
+                    print('文件已保存至应用目录下的“unlocked.txt”。')
+            del(whole_text2)
         elif choose == '4':
             filename3 = input('请输入文件位置：')
             passwd3 = input('请输入旧密码(格式：aaaa bbbb cccc dddd eeee ffff)：')
